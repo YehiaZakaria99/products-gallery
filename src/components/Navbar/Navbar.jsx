@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { cn } from "../lib/utils";
+import { cn } from "../../lib/utils";
 import { NavLink } from "react-router";
 import { ListIcon, XIcon } from "@phosphor-icons/react";
+import NavbarMobile from "./NavbarMobile";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -55,14 +56,21 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden z-50 text-primary mx-auto sm:mx-0"
+            className="lg:hidden z-50 text-primary cursor-pointer"
             aria-label="Toggle Menu"
           >
-            {isMenuOpen ? <XIcon size={48} color="#761d9f" /> : <ListIcon size={48} color="#761d9f" />}
+            {isMenuOpen ? (
+              <XIcon size={48} color="#761d9f" />
+            ) : (
+              <ListIcon size={48} color="#761d9f" />
+            )}
           </button>
         </div>
-
-
+        <NavbarMobile
+          navItems={navItems}
+          isMenuOpen={isMenuOpen}
+          setIsMenuOpen={setIsMenuOpen}
+        />
       </nav>
     </>
   );
