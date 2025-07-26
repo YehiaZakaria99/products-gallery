@@ -6,6 +6,10 @@ import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import { RouterProvider } from "react-router/dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// Create a client
+const queryClient = new QueryClient();
 
 function App() {
   const router = createBrowserRouter([
@@ -21,7 +25,9 @@ function App() {
   ]);
   return (
     <>
-      <RouterProvider router={router} />
+      <QueryClientProvider>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </>
   );
 }
