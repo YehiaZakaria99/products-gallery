@@ -52,12 +52,13 @@ export default function HeroSection() {
         >
           {allProducts?.slice(0, 6).map((product) => (
             <SwiperSlide key={product.id} className="py-10">
+              <Link to={`/productdetails/${product.id}`}>
               <div className="bg-card shadow-md shadow-main rounded-lg overflow-hidden hover:shadow-lg transition">
                 <img
                   src={product.image}
                   alt={product.title}
                   className="w-full aspect-[4/3] object-contain bg-gray-50 p-4"
-                />
+                  />
                 <div className="p-3 text-center">
                   <h3 className="text-base font-medium text-textColor line-clamp-2 truncate">
                     {product.title}
@@ -67,6 +68,7 @@ export default function HeroSection() {
                   </p>
                 </div>
               </div>
+                  </Link>
             </SwiperSlide>
           ))}
         </Swiper>
