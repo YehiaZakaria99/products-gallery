@@ -12,7 +12,6 @@ export default function ProductDetails() {
 
   const { id } = useParams();
 
-  // ✅ Check invalid ID before calling API
   if (isNaN(Number(id))) {
     return (
       <section className="py-48 text-center">
@@ -51,7 +50,6 @@ export default function ProductDetails() {
 
   if (isLoading || isFetching) return <Loading />;
 
-  // ✅ Handle API error
   if (isError || !product.id) {
     return (
       <section className="py-48 text-center">
