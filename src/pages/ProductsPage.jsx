@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState, useMemo } from "react";
 import Loading from "../components/Loading/Loading";
 import ProductCard from "../components/ProductCard/ProductCard";
+import { cn } from "../lib/utils";
 
 export default function ProductsPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -13,20 +14,25 @@ export default function ProductsPage() {
     return data;
   };
 
-  const { data: allProducts = [], isLoading } = useQuery({
+  const {
+    data: allProducts,
+    isLoading,
+    isFetching,
+  } = useQuery({
     queryKey: ["AllProducts"],
     queryFn: fetchProducts,
     staleTime: 5 * 60 * 1000,
+    keepPreviousData: true,
+    refetchOnWindowFocus: false,
   });
 
-  // Search
   const filteredProducts = useMemo(() => {
+    if (!Array.isArray(allProducts)) return [];
     return allProducts.filter((p) =>
       p.title.toLowerCase().includes(searchQuery.toLowerCase())
     );
   }, [allProducts, searchQuery]);
 
-  // Sort
   const sortedProducts = useMemo(() => {
     let products = [...filteredProducts];
     if (sortOption === "priceLowHigh") {
@@ -39,27 +45,37 @@ export default function ProductsPage() {
     return products;
   }, [filteredProducts, sortOption]);
 
-  if (isLoading) return <Loading />;
+  if (isLoading || isFetching) return <Loading />;
 
   return (
-    <section className="products py-36">
-      <div className="container">
-        <div className="box py-6 md:w-4/5 w-full mx-auto">
-          {/* Search */}
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
+    <section className="products py-40 bg-background min-h-screen">
+      <div className="container mx-auto px-4">
+        {/* Title */}
+        <h1 className="text-3xl font-bold text-center mb-10 text-main">
+          Our Products
+        </h1>
+
+        {/* Search & Sort */}
+        <div className="bg-background  rounded-md p-6 mb-10 ">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <input
-              onInput={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => setSearchQuery(e.target.value)}
               value={searchQuery}
-              className="outline-none shadow-[0_0px_3px_rgba(0,0,0,0.25)] focus:shadow-main px-3 py-2 block w-full md:w-1/2 rounded-md text-lg"
+              className={cn(
+                "border placeholder:text-textColor text-textColor border-main  outline-0 px-4 py-2 w-full md:w-1/2 rounded-lg text-lg shadow-sm ",
+                "transition-all focus:border-main focus:ring focus:ring-main duration-300"
+              )}
               type="text"
               placeholder="Search products..."
             />
 
-            {/* Sort Dropdown */}
             <select
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
-              className="px-3 py-2 rounded-md shadow-sm border border-gray-300 focus:border-main focus:ring focus:ring-main"
+              className={cn(
+                "border bg-background text-textColor outline-0 border-main  px-4 py-2 rounded-lg shadow-sm text-lg ",
+                "transition-all focus:border-main focus:ring focus:ring-main duration-300"
+              )}
             >
               <option value="">Sort by...</option>
               <option value="priceLowHigh">Price: Low → High</option>
@@ -67,18 +83,20 @@ export default function ProductsPage() {
               <option value="nameAZ">Name: A → Z</option>
             </select>
           </div>
-
-          {/* Products */}
-          {sortedProducts.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {sortedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
-            </div>
-          ) : (
-            <p className="text-center text-gray-500">No products found.</p>
-          )}
         </div>
+
+        {/* Products Grid */}
+        {sortedProducts.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 md:px-14">
+            {sortedProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-gray-500 text-lg mt-20">
+            No products found.
+          </p>
+        )}
       </div>
     </section>
   );
