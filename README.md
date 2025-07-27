@@ -1,12 +1,61 @@
-# React + Vite
+# Products Gallery
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📝 Project Overview
 
-Currently, two official plugins are available:
+Products Gallery is a **React + Vite** web application that showcases products fetched from a public API.  
+It is designed to be fast, responsive, and scalable, featuring smooth UI, a slider for quick previews,  
+and product detail pages including ratings and categories.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 📸 Screenshots / Demo
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+> _(Place your images or demo links here)_
+
+## Mobile
+
+## light
+
+- ![Homepage](./screenshots/mobile/light%20mode/01.png)
+- ![Products](./screenshots/mobile/light%20mode/02.png)
+- ![Product Details](./screenshots/mobile/light%20mode/03.png)
+- ![NotFound Page](./screenshots/mobile/light%20mode/04.png)
+
+## dark
+
+- ![Homepage](./screenshots/mobile/dark%20mode/01.png)
+- ![Products](./screenshots/mobile/dark%20mode/02.png)
+- ![Product Details](./screenshots/mobile/dark%20mode/03.png)
+- ![NotFound Page](./screenshots/mobile/dark%20mode/04.png)
+
+## Desktop
+
+## light
+
+- ![Homepage](./screenshots/desktop/light%20mode/01.png)
+- ![Products](./screenshots/desktop/light%20mode/02.png)
+- ![Product Details](./screenshots/desktop/light%20mode/03.png)
+- ![NotFound Page](./screenshots/desktop/light%20mode/04.png)
+
+## dark
+
+- ![Homepage](./screenshots/desktop/dark%20mode/01.png)
+- ![Products](./screenshots/desktop/dark%20mode/02.png)
+- ![Product Details](./screenshots/desktop/dark%20mode/03.png)
+- ![NotFound Page](./screenshots/desktop/dark%20mode/04.png)
+
+---
+
+## 🧱 Tech Stack Used
+
+- **React 19** – UI library
+- **Vite 7** – Fast build tool and development server
+- **Tailwind CSS 4** – Utility-first CSS framework
+- **React Router 7** – Routing and navigation
+- **React Query** – Data fetching & caching
+- **Axios** – HTTP client for API calls
+- **Swiper.js** – Product slider
+- **Phosphor Icons** – Icon library
+- **React Spinners** – Loading states
+
+---
