@@ -1,11 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Loading from "../components/Loading/Loading";
 import ProductCard from "../components/ProductCard/ProductCard";
 import { cn } from "../lib/utils";
 
 export default function ProductsPage() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const [searchQuery, setSearchQuery] = useState("");
   const [sortOption, setSortOption] = useState("");
 
@@ -51,7 +54,7 @@ export default function ProductsPage() {
     <section className="products py-40 bg-background min-h-screen">
       <div className="container mx-auto px-4">
         {/* Title */}
-        <h1 className="text-3xl font-bold text-center mb-10 text-main">
+        <h1 className="text-3xl font-bold text-center mb-10 text-textColor">
           Our Products
         </h1>
 
