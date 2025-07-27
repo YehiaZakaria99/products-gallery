@@ -1,1 +1,40 @@
 @import "tailwindcss";
+
+@theme {
+  --color-border: hsl(var(--border));
+  --color-background: hsl(var(--background));
+  --color-active: var(--active);
+  --color-main: var(--main);
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-navbar: var(--navbar);
+  --color-textColor: var(--textColor);
+  --color-background: var(--background);
+  --color-borderColor: var(--borderColor);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+}
+
+@layer base {
+  :root {
+    --navbar: #fff;
+    --main: #ef4823;
+    --active: #ef4823;
+    --textColor: #222;
+    --background: #fff;
+    --foreground: #222;
+    --borderColor: #222;
+    --card: #fff;
+  }
+
+  .dark {
+    --navbar: #222;
+    --textColor: #fff;
+    --background: #222;
+    --foreground: #fff;
+    --borderColor: #fff;
+    --card: #222;
+  }
+}
+.active {
+  color: var(--active);
+}
