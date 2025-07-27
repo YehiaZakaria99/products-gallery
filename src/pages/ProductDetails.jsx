@@ -102,7 +102,7 @@ export default function ProductDetails() {
             <div className="mt-6">
               <Link
                 to="/products"
-                className="block text-center bg-main/90 hover:bg-main text-textColor font-bold py-3 rounded-lg transition-colors duration-300"
+                className="block text-center bg-main/90 hover:bg-main text-white font-bold py-3 rounded-lg transition-colors duration-300"
               >
                 Back to Products
               </Link>

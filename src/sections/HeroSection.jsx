@@ -74,7 +74,7 @@ export default function HeroSection() {
 
       <Link
         to={"/products"}
-        className="mt-8 px-6 py-2 bg-main/90 hover:bg-main text-textColor rounded-md text-lg flex items-center gap-2 transition font-semibold cursor-pointer duration-300"
+        className="mt-8 px-6 py-2 bg-main/90 hover:bg-main text-white rounded-md text-lg flex items-center gap-2 transition font-semibold cursor-pointer duration-300"
       >
         See More
       </Link>
