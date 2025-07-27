@@ -12,15 +12,37 @@ export default function ProductDetails() {
 
   const { id } = useParams();
 
+  // ✅ Check invalid ID before calling API
+  if (isNaN(Number(id))) {
+    return (
+      <section className="py-48 text-center">
+        <h2 className="text-2xl font-bold text-red-500">Invalid Product ID</h2>
+        <Link
+          to="/products"
+          className="mt-4 inline-block bg-main/90 hover:bg-main text-white px-6 py-3 rounded-lg"
+        >
+          Back to Products
+        </Link>
+      </section>
+    );
+  }
+
   const getProduct = async () => {
-    const { data } = await axios.get(`https://fakestoreapi.com/products/${id}`);
-    return data;
+    try {
+      const { data } = await axios.get(
+        `https://fakestoreapi.com/products/${id}`
+      );
+      return data;
+    } catch (error) {
+      throw new Error("Product not found");
+    }
   };
 
   const {
     data: product = {},
     isLoading,
     isFetching,
+    isError,
   } = useQuery({
     queryKey: ["ProductDetails", id],
     queryFn: getProduct,
@@ -28,6 +50,21 @@ export default function ProductDetails() {
   });
 
   if (isLoading || isFetching) return <Loading />;
+
+  // ✅ Handle API error
+  if (isError || !product.id) {
+    return (
+      <section className="py-48 text-center">
+        <h2 className="text-2xl font-bold text-red-500">Product not found</h2>
+        <Link
+          to="/products"
+          className="mt-4 inline-block bg-main/90 hover:bg-main text-white px-6 py-3 rounded-lg"
+        >
+          Back to Products
+        </Link>
+      </section>
+    );
+  }
 
   const rating = product.rating?.rate ?? 0;
   const fullStars = Math.floor(rating);
