@@ -2,8 +2,14 @@ import { Link, useParams } from "react-router";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../components/Loading/Loading";
+import { useEffect } from "react";
+import { StarIcon, StarHalfIcon } from "@phosphor-icons/react";
 
 export default function ProductDetails() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const { id } = useParams();
 
   const getProduct = async () => {
@@ -23,8 +29,13 @@ export default function ProductDetails() {
 
   if (isLoading || isFetching) return <Loading />;
 
+  const rating = product.rating?.rate ?? 0;
+  const fullStars = Math.floor(rating);
+  const hasHalfStar = rating - fullStars >= 0.5;
+  const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
+
   return (
-    <section className="productDetails py-40 bg-background">
+    <section className="productDetails py-48 bg-background">
       <div className="container mx-auto px-4">
         <div className="bg-card shadow-lg rounded-xl p-6 flex flex-col md:flex-row gap-8">
           {/* Product Image */}
@@ -54,10 +65,34 @@ export default function ProductDetails() {
                 <p className="text-xl font-bold text-green-600">
                   ${product.price}
                 </p>
+
+                {/* Rating */}
                 <div className="flex items-center gap-1">
-                  <i className="fas fa-star text-yellow-400"></i>
-                  <span className="text-textColor/65">
-                    {product.rating?.rate}
+                  {Array.from({ length: fullStars }).map((_, i) => (
+                    <StarIcon
+                      key={`full-${i}`}
+                      size={18}
+                      weight="fill"
+                      className="text-main"
+                    />
+                  ))}
+                  {hasHalfStar && (
+                    <StarHalfIcon
+                      size={18}
+                      weight="fill"
+                      className="text-main"
+                    />
+                  )}
+                  {Array.from({ length: emptyStars }).map((_, i) => (
+                    <StarIcon
+                      key={`empty-${i}`}
+                      size={18}
+                      weight="regular"
+                      className="text-gray-300 dark:text-gray-600"
+                    />
+                  ))}
+                  <span className="text-textColor/65 ml-1">
+                    {rating.toFixed(1)}
                   </span>
                 </div>
               </div>
@@ -67,7 +102,7 @@ export default function ProductDetails() {
             <div className="mt-6">
               <Link
                 to="/products"
-                className="block text-center bg-main/90 hover:bg-main text-textColor font-semibold py-3 rounded-lg transition-colors duration-300"
+                className="block text-center bg-main/90 hover:bg-main text-textColor font-bold py-3 rounded-lg transition-colors duration-300"
               >
                 Back to Products
               </Link>
