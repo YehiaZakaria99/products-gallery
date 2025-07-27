@@ -7,11 +7,10 @@ export default function Loading() {
       <div
         className={cn(
           "fixed inset-0 flex justify-center items-center",
-          "bg-white",
-          "dark:bg-[#222]"
+          "bg-background",
         )}
       >
-        <ScaleLoader color="red" />
+        <ScaleLoader color="orangered" />
       </div>
     </>
   );
